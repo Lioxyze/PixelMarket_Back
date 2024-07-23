@@ -98,9 +98,12 @@ export class AuthService {
     return { access_token: token };
   }
 
-  async activateAccount(token: string) {
-    const user = await this.prisma.user.findFirst({
-      where: { token: token },
+  async activateAccount(token: string): Promise<boolean> {
+    console.log('je suis la', token);
+    const user = await this.prisma.user.findUnique({
+      where: {
+        token: token,
+      },
     });
 
     if (!user) {
@@ -108,13 +111,15 @@ export class AuthService {
     }
 
     await this.prisma.user.update({
-      where: { id: user.id },
+      where: {
+        id: user.id,
+      },
       data: {
         isActive: true,
-        token: null,
+        token: '',
       },
     });
 
-    return { message: 'Account activated successfully' };
+    return true; // Indication de succès
   }
 }

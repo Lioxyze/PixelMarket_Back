@@ -27,11 +27,16 @@ export class AuthController {
 
   @Get('/activate')
   async activateAccount(@Query('token') token: string, @Res() res: Response) {
-    try {
-      await this.authService.activateAccount(token);
-      return res.redirect('/Auth/Login');
-    } catch (error) {
-      return res.status(HttpStatus.FORBIDDEN).json({ message: error.message });
+    const isActivated = await this.authService.activateAccount(token);
+
+    if (isActivated) {
+      return res.redirect(
+        HttpStatus.FOUND,
+        'http://localhost:3001/Auth/activate',
+      );
+    } else {
+      // Gérer le cas où l'activation échoue si nécessaire
+      return res.status(HttpStatus.FORBIDDEN).send('Activation failed');
     }
   }
 }

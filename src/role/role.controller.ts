@@ -17,23 +17,23 @@ import { JwtGuard } from 'src/auth/guard';
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Get('/all')
   getAllRole() {
     return this.roleService.getAllRole();
   }
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Post('/new')
   insertNewRole(@Body() dto: RoleDto) {
     return this.roleService.insertNewRole(dto);
   }
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Patch('/update/:id')
   editRole(@Body() dto: RoleDto, @Param('id', ParseIntPipe) id: number) {
     return this.roleService.editRole(id, dto);
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Delete('/delete/:id')
   deleteRole(@Param('id', ParseIntPipe) id: number) {
     return this.roleService.deleteRole(id);

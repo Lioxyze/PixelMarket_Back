@@ -19,12 +19,16 @@ export class EmailService {
   }
 
   async sendUserConfirmation(user: User, token: string) {
-    const url = `${this.config.get('SERVER_URL')}/auth/activate?token=${token}`;
+    const url = `http://localhost:3000/Auth/activate?token=${token}`;
 
-    const emailHtml = `<p>Hey ${user.pseudo},</p>
-        <p>You requested an account creation on PixelMarket</p>
-            <a href='${url}'>Click here to activate your account</a>
-        <p>If you did not request this email you can safely ignore it.</p>`;
+    const emailHtml = `
+<p>Hey ${user.pseudo},</p>
+<p>You requested an account creation on Pixel Market, the figurine sales site.</p>
+<p>To activate your account, please click on the link below:</p>
+<p><a href='${url}'>Click here to activate your account</a></p>
+<p>If you did not request this email, you can safely ignore it.</p>
+<p>Thank you,<br>The Pixel Market Team</p>
+<p>`;
 
     await this.transporter.sendMail({
       from: this.config.get('SMTP_EMAIL'),

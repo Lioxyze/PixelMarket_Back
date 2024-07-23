@@ -22,18 +22,17 @@ export class CategoryController {
     return this.categoryService.getAllCategories();
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Post('/new')
   insertNewCategory(@Body() dto: CategoryDto) {
     return this.categoryService.insertNewCategory(dto);
   }
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Patch('/update/:id')
   async editCategory(@Body() dto: CategoryDto, @Param('id') id: string) {
     return this.categoryService.editCategory(parseInt(id), dto);
   }
 
-  // @UseGuards(JwtGuard)
   @Delete('/delete/:id')
   deleteCategory(@Param('id', ParseIntPipe) id: number) {
     return this.categoryService.deleteCategory(id);

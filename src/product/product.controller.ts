@@ -25,13 +25,13 @@ export class ProductController {
     return this.productService.getAllproduct();
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Post('/new')
   insertNewProduct(@Body() dto: InsertProductDto) {
     return this.productService.insertNewProduct(dto);
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Patch('/update/:id')
   editProduct(
     @Body() dto: InsertProductDto,
@@ -40,7 +40,6 @@ export class ProductController {
     return this.productService.editProduct(id, dto);
   }
 
-  // @UseGuards(JwtGuard)
   @Delete('/delete/:id')
   deleteProduct(@Param('id', ParseIntPipe) id: number) {
     return this.productService.deleteProduct(id);

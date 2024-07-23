@@ -22,7 +22,7 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Patch('/update/:id')
   updateUser(
     @Body() dto: UpdateUserDto,
@@ -31,7 +31,7 @@ export class UserController {
     return this.userService.updateUser(id, dto);
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @HttpCode(204)
   @Delete('/delete/:id')
   async deleteUser(@Param('id', ParseIntPipe) id: number) {
